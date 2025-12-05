@@ -21,6 +21,7 @@
             @for(product of Products; track $index) {
               <div class="col-4">
       <div class="card">
+         <button class="btn btn-danger" (click)="onDeleteProduct(product.product_id)">delete Product</button>
         <img class="img-fluid" width="130" [src]="product.image" alt="Card image cap" />
         <div class="card-body">
           <h5 class="card-title">{{product.title}}</h5>
@@ -32,7 +33,7 @@
         {{product.description}}
           </p>
              <div class="d-flex ">
-                <button class="btn btn-warning me-2">Edit</button>
+                <button (click)="onEditProduct(product._id,product)" class="btn btn-warning me-2">Edit</button>
                 <button class="btn btn-primary">View</button>
              </div>
         </div>
@@ -57,6 +58,7 @@
       </div>
       <div class="modal-body">
 <form [formGroup]="products">
+   
   <div class="form-group">
     <label for="exampleFormControlInput1">ImageURL</label>
     <input type="text" formControlName="image" class="form-control" id="exampleFormControlInput1" placeholder="image url">
@@ -76,7 +78,8 @@
 </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveProductDetails()">Save Product</button>
+        <button *ngIf="!editMode" type="button" class="btn btn-primary" (click)="saveProductDetails()">Save Product</button>
+        <button *ngIf="editMode"  type="button" class="btn btn-primary" (click)="onUpdateProduct()">update Product</button>
         <button type="button" (click)="closeModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
